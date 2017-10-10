@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //View::share('userName', 'guest');
+
+        $isAuth = false;
+
+        View::composer('*', function ($view) use ($isAuth) {
+            if ($isAuth !== true) {
+                $name =  'guest';
+            } else {
+                $name =  'Dima';
+            }
+
+            $view->with('userName', $name);
+        });
     }
 
     /**
