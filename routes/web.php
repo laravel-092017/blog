@@ -24,6 +24,9 @@
 Route::get('/', 'MainController@mainPage')
     ->name('mainPage');
 
+Route::get('/about', 'MainController@aboutPage')
+    ->name('aboutPage');
+
 Route::get('/404', 'MainController@notFoundPage')
     ->name('notFoundPage');
 
@@ -44,4 +47,16 @@ Route::get('/user/{id}/{name}', function ($id, $name) {
 })->where(['id' => '[0-9]+', 'name' => '[a-z]+']);
 
 Route::get('/test/redirect', 'TestController@redirectPage');
+Route::any('/test/', 'TestController@testPostGetMethod');
+
+Route::group(['prefix' => 'test'], function () {
+    Route::get('response1', 'MainController@response1');
+    Route::get('response2', 'MainController@response2');
+    Route::get('response3', 'MainController@response3');
+    Route::get('response4', 'MainController@response4');
+    Route::get('response5', 'MainController@response5');
+    Route::get('response6', 'MainController@response6');
+    Route::get('response7', 'MainController@response7');
+    Route::get('response8', 'MainController@response8');
+});
 
