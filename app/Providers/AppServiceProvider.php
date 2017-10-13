@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Includes\Classes\MyCounter;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('userName', $name);
         });
+
+
     }
 
     /**
@@ -36,6 +39,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 }

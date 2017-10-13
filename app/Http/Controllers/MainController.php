@@ -41,7 +41,12 @@ class MainController extends Controller
 
     public function response1()
     {
-        return 'OK1';
+        $counter = resolve('AwesomeCounter');
+        $counter->increment();
+        $counter->increment();
+
+        return $counter->getValue();
+        //return 'OK1';
     }
 
     public function response2()
