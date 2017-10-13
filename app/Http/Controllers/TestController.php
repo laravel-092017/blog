@@ -1,9 +1,20 @@
 <?php namespace App\Http\Controllers;
 
+//use App\Includes\Classes\MyCounter;
+use App\Includes\CounterInterface;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
+    protected $counter;
+
+    public function __construct(CounterInterface $counter)
+    {
+        $this->counter = $counter;
+        //$this->counter = resolve('AwesomeCounter');
+        //$this->counter = new MyCounter();
+    }
+
     public function testGetMethod(Request $request)
     {
         $name = $request->input('name', 'Вася');
@@ -44,5 +55,21 @@ HTML;
         echo $url;
 
         //return redirect()->route('notFoundPage');
+    }
+
+    public function some()
+    {
+        //return myFormatDate(time());
+        //$counter->some();
+        //$counter = resolve('AwesomeCounter');
+        //$counter->
+        //$counter = new MyCounter();
+
+        $this->counter->increment();
+        $this->counter->increment();
+        $this->counter->increment();
+        $this->counter->decrement();
+
+        return $this->counter->getValue();
     }
 }

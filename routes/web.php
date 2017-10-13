@@ -58,5 +58,7 @@ Route::group(['prefix' => 'test'], function () {
     Route::get('response6', 'MainController@response6');
     Route::get('response7', 'MainController@response7');
     Route::get('response8', 'MainController@response8');
+
+    Route::get('some', 'TestController@some');
 });
 
