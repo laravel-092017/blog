@@ -1,124 +1,103 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
-    public function mainPage()
+    public function index()
     {
-        return view('pages.main', [
-            'title' => 'Main page'
+        $posts = [];
+
+        return view('layouts.primary', [
+            'page' => 'pages.main',
+            'title' => 'Blogplace :: Блог Дмитрий Юрьев - PHP & JS разработчик, ментор, преподаватель',
+            'content' => '<p>Привет, меня зовут Дмитрий Юрьев и я веб разработчик!</p>',
+            'image' => [
+                'path' => 'assets/images/Me.jpg',
+                'alt' => 'Image'
+            ],
+            'activeMenu' => 'main',
+            'posts' => $posts
         ]);
     }
 
-    public function aboutPage()
+    public function about()
     {
-        return view('pages.about', [
-            'title' => 'About company'
+        return view('layouts.primary', [
+            'page' => 'pages.about',
+            'title' => 'Обо мне',
+            'content' => '<p>Привет, меня зовут Дмитрий Юрьев и я веб разработчик!</p>',
+            'image' => [
+                'path' => 'assets/images/Me.jpg',
+                'alt' => 'Image'
+            ],
+            'activeMenu' => 'about',
         ]);
     }
 
-    public function notFoundPage()
+    public function feedback()
     {
-        return view('404');
+        return view('layouts.primary', [
+            'page' => 'pages.feedback',
+            'title' => 'Написать мне',
+            'content' => '<p>Привет, меня зовут Дмитрий Юрьев и я веб разработчик!</p>',
+            'activeMenu' => 'feedback',
+        ]);
     }
-/*
-    public function user($id = null)
-    {
-        if (User::hasRights('post.create')) {
-            if (is_null($id)) {
-                abort(404);
-            }
 
-            return "Requested User with ID " . $id;
+    public function db(Request $request)
+    {
+
+        $sortBy = $request->input('sortBy', 'DESC');
+        $sql = "SELECT * FROM users";
+
+        /*$data = DB::table('users')
+            ->where('name', 'LIKE', '%ася')
+            ->orWhere('email','petya@mail.ru')
+            ->get(['name','email']);
+*/
+
+        /*$user = DB::table('users')
+            ->where('name', 'Вася')
+            ->first();
+
+        //dump($data);
+        echo $user->name;*/
+
+        $sql="select * from `users` where `name` LIKE '%ася' or `email` = 'petya@mail.ru' order by `id` desc limit 1 offset 0";
+
+        $data = DB::table('users')
+            ->where('name', 'LIKE', '%ася')
+            ->orWhere('email','petya@mail.ru')
+            ->limit(1)
+            ->offset(0);
+
+        if ($sortBy == 'DESC') {
+            $data->orderBy('id', 'DESC');
         } else {
-            abort(403);
+            $data->orderBy('id', 'ASC');
         }
 
-
-    }*/
-
-    public function response1()
-    {
-        $counter = resolve('AwesomeCounter');
-        $counter->increment();
-        $counter->increment();
-
-        return $counter->getValue();
-        //return 'OK1';
-    }
-
-    public function response2()
-    {
-        $content = <<<HTML
-http://site.ru/54534568687545345686875453456868754534568687
-
-Route::get(/{id})->where('id', '\d{40}')
-<br>
-<br>
-<h1>10000000001</h1>
-54534568687
-99999999999
-
-http://site.ru/news/
-HTML;
+        $data->get();
 
 
+/*
+foreach ($data as $row) {
+    echo $row->name . $row->email,'<br>';
+}*/
 
-        return response($content, 200)
-            ->header('Content-Type', 'text/plain')
-            ->header('X-Custom-Header', 'Header Value')
-            ->cookie('mycookie', 'val', 60*24);
-    }
+        dump($data);
 
-    public function response3()
-    {
-        return redirect('http://ya.ru/');
-    }
 
-    public function response4()
-    {
-        return redirect()
-            ->route('notFoundPage');
-    }
+        $content = '123';
 
-    public function response5()
-    {
-        return redirect()
-            ->action('MainController@response2');
-    }
-
-    public function response6()
-    {
-       /*$string = (string) json_encode([
-           'a' => 1,
-           'b' => '2',
-           'c' => true
-       ]);
-
-        return response($string)
-            ->header('Content-Type', 'application/json');
-        */
-
-        return [
-            'a' => 1,
-            'b' => '2',
-            'c' => true
-        ];
-    }
-
-    public function response7()
-    {
-        return response()
-            ->download(public_path('desc.txt'));
-    }
-
-    public function response8()
-    {
-        return view('test', [
-            'userCount' => '1',
-            /*'userName' => 'Dima',*/
+        return view('layouts.primary', [
+            'page' => 'pages.blank',
+            'title' => 'Написать мне',
+            'content' => $content,
+            'activeMenu' => 'feedback',
         ]);
     }
 }
