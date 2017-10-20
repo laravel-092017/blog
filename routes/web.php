@@ -11,6 +11,44 @@
 |
 */
 
+Route::get('/', 'MainController@index')
+    ->name('site.main.index');
+Route::get('/about.html', 'MainController@about')
+    ->name('site.main.about');
+Route::get('/feedback.html', 'MainController@feedback')
+    ->name('site.main.feedback');
+Route::get('/post/{id}.html', 'PostController@post')
+    ->name('site.posts.post')
+    ->where('id', '[\d]+');
+
+Route::get('/db.html', 'MainController@db')
+    ->name('site.main.db');
+
+
+/**
+ * Routes for register and login
+ */
+Route::get('/register.html', 'AuthController@register')
+    ->name('site.auth.register');
+
+Route::post('/register.html', 'AuthController@registerPost')
+    ->name('site.auth.registerPost');
+
+Route::get('/login.html', 'AuthController@login')
+    ->name('site.auth.login');
+
+Route::post('/login.html', 'AuthController@loginPost')
+    ->name('site.auth.loginPost');
+
+Route::get('/logout', 'AuthController@logout')
+    ->name('site.auth.logout');
+
+Route::group(['prefix' => 'test'], function () {
+    Route::any('/', 'TestController@index');
+    Route::get('/users', 'TestController@getUsers');
+    Route::get('/testOrm', 'TestController@testOrm');
+});
+
 /*Route::get('/', function () {
     return view('welcome');
 });*/
@@ -20,7 +58,7 @@
 /*Route::get('/404', function () {
     return view('404');
 });*/
-
+/*
 Route::get('/', 'MainController@mainPage')
     ->name('mainPage');
 
@@ -61,4 +99,8 @@ Route::group(['prefix' => 'test'], function () {
 
     Route::get('some', 'TestController@some');
 });
+*/
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
