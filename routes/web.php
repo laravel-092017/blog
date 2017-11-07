@@ -24,6 +24,9 @@ Route::get('/post/{id}.html', 'PostController@post')
 Route::get('/db.html', 'MainController@db')
     ->name('site.main.db');
 
+Route::get('/orm', 'MainController@orm')
+    ->name('site.main.orm');
+
 
 /**
  * Routes for register and login
