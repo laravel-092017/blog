@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -99,5 +100,65 @@ foreach ($data as $row) {
             'content' => $content,
             'activeMenu' => 'feedback',
         ]);
+    }
+
+    public function orm()
+    {
+        /*$customer = new Customer();
+
+        $customer->name = 'Сидор';
+        $customer->surname = 'Сидоров';
+        $customer->patronymic = 'Сидорович';
+        $customer->age = 40;
+        $customer->birthdate = '1984-06-23';
+        $customer->notes = 'sdfsdfsdf';
+
+        $customer->save();*/
+
+        /*$customer = Customer::find(3);
+
+        $customer->age = 18;
+        $customer->birthdate = '2008-04-12';
+
+        $customer->save();*/
+
+        /*$customers1 = DB::table('customers')->where('name', '=', 'Иван')->get();
+        $customers2 = Customer::where('name', '=', 'Иван')->get();
+
+        foreach ($customers1 as $customer1) {
+            echo $customer1->name, ' - ', $customer1->age, '<br>';
+        }
+
+        foreach ($customers2 as $customer2) {
+            echo $customer2->name, ' - ', $customer2->age, '<br>';
+            $customer2->name = 'Dmitrii';
+            $customer2->surname = 'Iurev';
+            $customer2->save();
+        }
+
+        dump($customers1, $customers2);*/
+
+        //$customer = Customer::where('name', 'Dmitrii')->first();
+        //dump($customer);
+        //$customer->delete();
+
+
+
+
+        $newModel = Customer::create([
+            'name' => 'Alfred',
+            'surname' => 'Ivanov',
+            'age' => 22,
+            'birthdate' => '1990-01-30',
+            'notes' => 'NTSchool student'
+        ]);
+
+        $customers = Customer::all();
+
+        dump($customers, $newModel->id);
+
+
+
+        //return 'ORM';
     }
 }
