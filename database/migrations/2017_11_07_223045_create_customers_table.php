@@ -21,9 +21,7 @@ class CreateCustomersTable extends Migration
             $table->date('birthdate');
             $table->integer('age')->default(0);
             $table->text('notes');
-            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
