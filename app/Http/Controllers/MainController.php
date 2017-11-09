@@ -1,6 +1,10 @@
 <?php namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Post;
+use App\Models\Profile;
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -155,10 +159,125 @@ foreach ($data as $row) {
 
         $customers = Customer::all();
 
-        dump($customers, $newModel->id);
+        dump($customers, $newModel);
 
 
 
         //return 'ORM';
+    }
+
+    public function relations()
+    {
+        //$user = User::find(1);
+        //$userProfile = $user->profile;
+        //$userBirthday = User::find(1)->profile->birthdate;
+
+
+        //dump($user->email, $userProfile->name, $userProfile->birthdate);
+
+        //$profile = $user;
+
+        //dump($profile);
+
+        /*$userModel = Profile::where('name', 'Dmitrii')
+            ->first()
+            ->user
+            ->id;
+
+        dump($userModel);*/
+
+
+        /*$postsByUser1 = User::find(1)
+            ->posts;*/
+
+        /*$postsByUser2 = Post::where('user_id', 1)
+            ->get();
+
+        $postsByUser3 = DB::table('posts')
+            ->where('user_id', 1)
+            ->get();*/
+
+        //dump($postsByUser1);//, $postsByUser2, $postsByUser3);
+
+        /*return view('layouts.primary', [
+            'page' => 'pages.main',
+            'posts' => User::find(1)->posts
+        ]);*/
+
+        /*echo Post::find(1)
+            ->user
+            ->profile
+            ->name;*/
+
+
+        /*$tags = Post::where('slug', '222')->first()->tags;
+
+        dump($tags);
+        $tagsString = '';
+
+        foreach ($tags as $tag) {
+            $tagsString .= $tag->name . ', ';
+        }
+
+        echo rtrim(trim($tagsString), ',');
+
+        $postsByTag = Tag::where('name', 'Просто тэг')->first()->posts;
+
+        foreach ($postsByTag as $post) {
+            echo $post->id, '<br>';
+        }
+
+        $posts1 = Post::has('tags')->get();
+
+        $posts2 = Post::has('tags', '>=', 2)->get();
+
+        dump($posts1, $posts2);
+
+        dump(Post::doesntHave('tags')->get());
+
+        //return 'OK';
+
+        $posts = Post::withCount('tags')->get();
+
+        foreach ($posts as $post) {
+            echo $post->title . ' - '. $post->tags_count, '<br>';
+        }*/
+
+
+        /*$post = new Post([
+            'title' => 'Post4.',
+            'slug' => '444',
+            'tagline' => '444444'
+        ]);
+
+        $user = User::find(1);
+        $user->posts()->save($post);*/
+
+        /*User::find(1)->posts()->create([
+            'title' => 'Post5',
+            'slug' => '555',
+            'tagline' => '555555'
+        ]);*/
+
+
+        /*try {
+            Post::find(5)
+                ->tags()
+                ->attach(2);
+        } catch (\Exception $e) {}
+
+        Post::find(5)
+            ->tags()
+            ->detach(Tag::where('name', 'Новость')->first()->id);*/
+
+        Post::find(1)
+            ->tags()
+            ->sync([
+                Tag::where('name', 'Новость')->first()->id,
+                Tag::where('name', 'Просто тэг')->first()->id
+            ]);
+
+        return 'OK';
+
     }
 }
