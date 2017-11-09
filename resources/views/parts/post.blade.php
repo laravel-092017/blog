@@ -14,7 +14,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-5">
                             <div class="meta__comments">
-                                <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ getRusDate($post->created_at) }}</span>
+                                <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ $post->created_at }}</span>
                             </div>
                         </div>
                     </div>
