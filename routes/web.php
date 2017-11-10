@@ -21,6 +21,9 @@ Route::get('/post/{id}.html', 'PostController@post')
     ->name('site.posts.post')
     ->where('id', '[\d]+');
 
+/**
+ * Routes for DB and ORM
+ */
 Route::get('/db.html', 'MainController@db')
     ->name('site.main.db');
 
@@ -30,6 +33,14 @@ Route::get('/orm', 'MainController@orm')
 Route::get('/relations', 'MainController@relations')
     ->name('site.main.relations');
 
+/**
+ * Routes for uploads
+ */
+Route::get('/upload', 'UploadController@showForm')
+    ->name('site.main.upload');
+
+Route::post('/upload', 'UploadController@processUpload')
+    ->name('site.main.uploadPost');
 
 /**
  * Routes for register and login
