@@ -18,7 +18,7 @@ class Controller extends BaseController
     public function __construct(Request $request)
     {
         $this->request = $request;
-        //$this->renderSharedViews();
+        $this->renderSharedViews();
     }
 
     protected function renderSharedViews()
