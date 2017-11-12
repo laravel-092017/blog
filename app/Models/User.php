@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -7,32 +9,29 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = ['password', 'remember_token'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-
-    public function profile()
+    public function getUserNameAttribute()
     {
-        return $this->hasOne('App\Models\Profile');
+        $name = explode('@', $this->email)[0];
+        $name = str_replace(['_','.'], ' ', $name);
+        $nameParts = explode(' ', $name);
+        array_walk($nameParts, function(&$el) {
+            $el = ucfirst($el);
+        });
+
+        return implode(' ', $nameParts);
     }
 
-    public function posts()
+    public function setUserNameAttribute($value)
     {
-        return $this->hasMany('App\Models\Post');
+        $nameParts = explode(' ', $value);
+        $this->attributes['email'] = strtolower(implode('.', $nameParts)) . '@epam.com';
+    }
+
+    public function phone()
+    {
+        return $this->hasOne('App\Models\Phone');
     }
 }

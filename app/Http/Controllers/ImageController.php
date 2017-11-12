@@ -1,7 +1,10 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
+namespace App\Http\Controllers;
+
+use Image;
+use File;
+
 
 class ImageController extends Controller
 {

@@ -15,14 +15,6 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
             $table->string('image',255)->nullable();
             $table->string('title',255);
             $table->string('slug',255);
@@ -30,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->text('announce')->nullable();
             $table->text('fulltext')->nullable();
             $table->integer('views_count')->nullable()->default(0);
+            $table->string('status',10)->default('OWNER');
             $table->boolean('is_active')->default(1);
             $table->boolean('is_favorite')->default(0);
             $table->timestamp('active_from')->nullable();
