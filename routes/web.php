@@ -33,6 +33,20 @@ Route::group(['prefix' => 'post'], function() {
         ->where('section', '.+');
 });
 
+Route::get('/create', 'PostController@create')
+    ->name('site.posts.create')
+    ->middleware('auth');
+
+Route::post('/create', 'PostController@createPost')
+    ->name('site.posts.createPost')
+    ->middleware('auth');
+
+/*Route::get('/edit/{id}', 'PostController@edit')
+    ->name('site.posts.edit');
+
+Route::post('/edit/{id}', 'PostController@editPost')
+    ->name('site.posts.editPost');
+*/
 
 
 /**
@@ -40,8 +54,8 @@ Route::group(['prefix' => 'post'], function() {
  */
 Route::get('/register.html', 'AuthController@register')->name('site.auth.register');
 Route::post('/register.html', 'AuthController@registerPost')->name('site.auth.registerPost');
-Route::get('/login.html', 'AuthController@login')->name('site.auth.login');
-Route::post('/login.html', 'AuthController@loginPost')->name('site.auth.loginPost');
+Route::get('/login', 'AuthController@login')->name('site.auth.login');
+Route::post('/login', 'AuthController@loginPost')->name('site.auth.loginPost');
 Route::get('/logout', 'AuthController@logout')->name('site.auth.logout');
 
 Route::get('/test', 'TestController@testGet');
