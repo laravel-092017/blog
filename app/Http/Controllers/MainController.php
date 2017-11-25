@@ -97,4 +97,21 @@ class MainController extends Controller
             'activeMenu' => 'feedback',
         ]);
     }
+
+    public function ajaxSimple()
+    {
+        return view('layouts.primary', [
+            'page' => 'pages.ajax',
+            'title' => 'Ajax test',
+        ]);
+    }
+
+    public function feedback2()
+    {
+        return view('layouts.primary', [
+            'page' => 'pages.feedback2',
+            'title' => 'Написать мне',
+            'activeMenu' => 'feedback',
+        ]);
+    }
 }

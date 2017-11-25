@@ -17,6 +17,8 @@ Route::get('/', 'MainController@index')->name('site.main.index');
 Route::get('/about.html', 'MainController@about')->name('site.main.about');
 Route::get('/feedback.html', 'MainController@feedback')->name('site.main.feedback');
 Route::post('/feedback.html', 'MainController@feedbackPost')->name('site.main.feedbackPost');
+Route::match(['get', 'post'], '/ajax', 'MainController@ajaxSimple')->name('site.main.ajaxSimple');
+Route::match(['get', 'post'], '/feedback2.html', 'MainController@feedback2')->name('site.main.feedback2');
 
 
 Route::group(['prefix' => 'post'], function() {
